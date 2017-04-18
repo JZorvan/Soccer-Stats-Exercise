@@ -20,7 +20,7 @@ namespace SoccerStatsTH
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
         [JsonProperty(PropertyName = "points_per_game")]
-        public string pointsPerGame { get; set; }
+        public double pointsPerGame { get; set; }
         [JsonProperty(PropertyName = "second_name")]
         public string LastName { get; set; }
         [JsonProperty(PropertyName = "team_name")]
