@@ -27,6 +27,7 @@ namespace SoccerStatsTH
             fileName = Path.Combine(directory.FullName, "topten.json");
             SerializePlayersToFile(topTenPlayers, fileName);
             Console.WriteLine(GetGoogleHomePage());
+            Console.WriteLine(GetNewsForPlayer("Diego Valeri"));
         }
 
         public static string ReadFile(string fileName)
@@ -137,6 +138,22 @@ namespace SoccerStatsTH
             {
                 byte[] googleHome = webClient.DownloadData("https://www.google.com");
                 using (var stream = new MemoryStream(googleHome))
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        return reader.ReadToEnd();
+                    }
+                }
+            }
+        }
+
+        public static string GetNewsForPlayer(string playerName)
+        {
+            using (var webClient = new WebClient())
+            {
+                webClient.Headers.Add("Ocp-Apim-Subscription-Key", "95fabbd73324490cb8cf2060aaef475f");
+                byte[] searchResults = webClient.DownloadData(string.Format("https://api.cognitive.microsoft.com/bing/v5.0/news/search?q={0}&mkt=en-us", playerName));
+                using (var stream = new MemoryStream(searchResults))
                 {
                     using (var reader = new StreamReader(stream))
                     {
